@@ -16,12 +16,14 @@
 .question-number {
   font-size: 1.125rem;
   font-weight: 300;
+  color: #f6f6f6;
 }
 
 .question-text {
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 700;
   text-align: center;
+  color: #f6f6f6;
 }
 
 .answer-button-grid {

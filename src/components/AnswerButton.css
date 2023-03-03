@@ -2,16 +2,17 @@
   font-size: 1.025rem;
   font-weight: 600;
   padding: 0.8rem;
-  color: #333;
+  color: #312e81;
   background-color: #f6f6f6;
-  border: 2px solid transparent;
+  border: 3px solid transparent;
   border-radius: 10px;
   box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
     rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
   cursor: pointer;
-  transition: border 150ms ease-in-out;
+  transition: all 150ms ease-in-out;
 }
 
 .answer-button:hover {
-  border: 2px solid #333;
+  color: #ea4c89;
+  border: 3px solid #ea4c89;
 }

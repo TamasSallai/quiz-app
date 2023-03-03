@@ -26,7 +26,7 @@ const QuizBox = ({ numberOfQuizzes, quizIndex, quiz }: QuizBoxProps) => {
     <div className="quiz-container">
       <div className="question-container">
         <span className="question-number">
-          Question {quizIndex} of {numberOfQuizzes}
+          Question {quizIndex + 1} of {numberOfQuizzes}
         </span>
         <p className="question-text">{question}</p>
       </div>
