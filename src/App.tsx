@@ -10,7 +10,7 @@ function App() {
     'https://opentdb.com/api.php?amount=12',
     'results'
   )
-  const [quizIndex, setQuizIndex] = useState(1)
+  const [quizIndex, setQuizIndex] = useState(0)
 
   return (
     <div className="app">
@@ -21,6 +21,16 @@ function App() {
           quiz={data[quizIndex]}
         />
       )}
+      <button
+        className="next-button"
+        onClick={() =>
+          setQuizIndex((index) =>
+            data && data.length - 1 > index ? index + 1 : index
+          )
+        }
+      >
+        Next
+      </button>
     </div>
   )
 }
