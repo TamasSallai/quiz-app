@@ -6,13 +6,30 @@
   background-color: #f6f6f6;
   border: 3px solid transparent;
   border-radius: 10px;
-  box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px,
-    rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
+  box-shadow: rgba(0, 0, 0, 0.2) 0px 10px 36px 0px;
   cursor: pointer;
   transition: all 150ms ease-in-out;
 }
 
 .answer-button:hover {
-  color: #ea4c89;
-  border: 3px solid #ea4c89;
+  background-color: #d3d3d3;
+}
+
+.answer-button.correct {
+  color: #f6f6f6;
+  background-color: #0d9488;
+}
+
+.answer-button.correct:hover {
+  color: #f6f6f6;
+  background-color: #14b8a6;
+}
+
+.answer-button.incorrect {
+  color: #f6f6f6;
+  background-color: #ef4444;
+}
+
+.answer-button.incorrect:hover {
+  background-color: #f87171;
 }
