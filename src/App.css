@@ -11,7 +11,13 @@
   gap: 5rem;
 }
 
+.button-container {
+  display: flex;
+  gap: 1rem;
+}
+
 .next-button {
+  width: 8rem;
   padding: 0.6rem 1.2rem;
   font-weight: 800;
   color: #f6f6f6;
@@ -29,4 +35,8 @@
 
 .next-button:active {
   transform: scale(0.95);
+}
+
+.next-button:disabled {
+  background-color: #ccc;
 }

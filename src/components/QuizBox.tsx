@@ -1,41 +1,28 @@
-import { Quiz } from '../type'
-import AnswerButton from './AnswerButton'
+import React from 'react'
 import './QuizBox.css'
 
 interface QuizBoxProps {
-  numberOfQuizzes: number
+  question: string
   quizIndex: number
-  quiz: Quiz
+  numberOfQuizzes: number
+  children: React.ReactNode
 }
 
-const QuizBox = ({ numberOfQuizzes, quizIndex, quiz }: QuizBoxProps) => {
-  const {
-    category,
-    type,
-    difficulty,
-    question,
-    correct_answer,
-    incorrect_answers,
-  } = quiz
-
-  // Answers array randomization should be reworked with the Fisher-Yates shuffle algorithm.
-  const answers = [...incorrect_answers, correct_answer]
-  const shuffledAnswers = answers.sort(() => 0.5 - Math.random())
-
+const QuizBox = ({
+  question,
+  quizIndex,
+  numberOfQuizzes,
+  children,
+}: QuizBoxProps) => {
   return (
     <div className="quiz-container">
       <div className="question-container">
         <span className="question-number">
-          Question {quizIndex + 1} of {numberOfQuizzes}
+          Question <strong>{quizIndex + 1}</strong> of {numberOfQuizzes}
         </span>
         <p className="question-text">{question}</p>
       </div>
-
-      <div className="answer-button-grid">
-        {shuffledAnswers.map((answer) => (
-          <AnswerButton key={answer} text={answer} />
-        ))}
-      </div>
+      <div className="answer-button-grid">{children}</div>
     </div>
   )
 }
