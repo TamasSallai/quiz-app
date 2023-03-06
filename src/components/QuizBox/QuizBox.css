@@ -39,3 +39,9 @@
     grid-template-columns: minmax(auto, 26rem);
   }
 }
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
