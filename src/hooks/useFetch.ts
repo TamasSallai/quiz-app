@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 const useFetch = <TData>(url: string, key: string | undefined = undefined) => {
   const [data, setData] = useState<TData>()
   const [isLoading, setIsLoading] = useState(true)
-  const [error, setError] = useState()
+  const [error, setError] = useState<string>()
 
   useEffect(() => {
     const controller = new AbortController()

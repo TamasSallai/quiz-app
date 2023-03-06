@@ -1,27 +1,16 @@
-import { useEffect, useReducer } from 'react'
+import { State } from './state'
 import { QuizData, QuizDataExtended } from '../type'
 import { shuffleArray } from '../helper'
-import useFetch from './useFetch'
 
-interface State {
-  quizList: QuizDataExtended[]
-  quizIndex: number
-}
-
-const initialState: State = {
-  quizList: [],
-  quizIndex: 0,
-}
-
-type Action =
-  | { type: 'SET_QUIZLIST'; payload: QuizData[] }
+export type Action =
+  | { type: 'SET_QUIZ_LIST'; payload: QuizData[] }
   | { type: 'SELECT_ANSWER'; payload: string }
   | { type: 'NEXT_QUESTION' }
   | { type: 'PREV_QUESTION' }
 
-const reducer = (state: State, action: Action) => {
+export const reducer = (state: State, action: Action) => {
   switch (action.type) {
-    case 'SET_QUIZLIST':
+    case 'SET_QUIZ_LIST':
       const extendedQuizList = action.payload.map((quiz) => {
         const quizDataExtended = quiz as QuizDataExtended
         quizDataExtended.shuffled_answers = shuffleArray([
@@ -38,11 +27,17 @@ const reducer = (state: State, action: Action) => {
       }
     case 'SELECT_ANSWER':
       const quizList = [...state.quizList]
-      quizList[state.quizIndex].choosen_answer = action.payload
+      const currentQuiz = quizList[state.quizIndex]
+      currentQuiz.choosen_answer = action.payload
 
       return {
         ...state,
         quizList: quizList,
+        numberOfAnswers: state.numberOfAnswers + 1,
+        numberOfCorrectAnswers:
+          currentQuiz.choosen_answer === currentQuiz.correct_answer
+            ? state.numberOfCorrectAnswers + 1
+            : state.numberOfCorrectAnswers,
       }
     case 'NEXT_QUESTION':
       return {
@@ -61,21 +56,3 @@ const reducer = (state: State, action: Action) => {
       return state
   }
 }
-
-const useQuiz = () => {
-  const value = useReducer(reducer, initialState)
-  const [quizState, dispatch] = value
-
-  const { data, isLoading, error } = useFetch<QuizData[]>(
-    'https://opentdb.com/api.php?amount=12',
-    'results'
-  )
-
-  useEffect(() => {
-    if (data) dispatch({ type: 'SET_QUIZLIST', payload: data })
-  }, [data])
-
-  return value
-}
-
-export default useQuiz
