@@ -7,6 +7,8 @@ export type Action =
   | { type: 'SELECT_ANSWER'; payload: string }
   | { type: 'NEXT_QUESTION' }
   | { type: 'PREV_QUESTION' }
+  | { type: 'FINISH_QUIZ' }
+  | { type: 'RESTART_QUIZ' }
 
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -51,6 +53,29 @@ export const reducer = (state: State, action: Action) => {
       return {
         ...state,
         quizIndex: state.quizIndex > 0 ? state.quizIndex - 1 : state.quizIndex,
+      }
+    case 'FINISH_QUIZ': {
+      return {
+        ...state,
+        isFinished: true,
+      }
+    }
+    case 'RESTART_QUIZ':
+      const resetedQuizList = state.quizList.map((quiz) => {
+        const resetedQuiz = { ...quiz }
+        resetedQuiz.choosen_answer = undefined
+        resetedQuiz.shuffled_answers = shuffleArray([
+          ...quiz.incorrect_answers,
+          quiz.correct_answer,
+        ])
+        return resetedQuiz
+      })
+      return {
+        quizList: resetedQuizList,
+        quizIndex: 0,
+        numberOfAnswers: 0,
+        numberOfCorrectAnswers: 0,
+        isFinished: false,
       }
     default:
       return state
