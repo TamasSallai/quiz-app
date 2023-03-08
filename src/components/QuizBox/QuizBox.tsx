@@ -22,13 +22,15 @@ const QuizBox = () => {
     dispatch({ type: 'FINISH_QUIZ' })
   }
 
+  const question = { __html: currentQuiz.question }
+
   return (
     <div className="quiz-container">
       <div className="question-container">
         <span className="question-number">
           Question <strong>{quizIndex + 1}</strong> of {quizList.length}
         </span>
-        <p className="question-text">{currentQuiz.question}</p>
+        <p className="question-text" dangerouslySetInnerHTML={question}></p>
       </div>
 
       <div className="answer-button-grid">
