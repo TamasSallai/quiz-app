@@ -9,6 +9,7 @@ export type Action =
   | { type: 'PREV_QUESTION' }
   | { type: 'FINISH_QUIZ' }
   | { type: 'RESTART_QUIZ' }
+  | { type: 'CLEANUP_QUIZ' }
 
 export const reducer = (state: State, action: Action) => {
   switch (action.type) {
@@ -72,6 +73,14 @@ export const reducer = (state: State, action: Action) => {
       })
       return {
         quizList: resetedQuizList,
+        quizIndex: 0,
+        numberOfAnswers: 0,
+        numberOfCorrectAnswers: 0,
+        isFinished: false,
+      }
+    case 'CLEANUP_QUIZ':
+      return {
+        quizList: [],
         quizIndex: 0,
         numberOfAnswers: 0,
         numberOfCorrectAnswers: 0,

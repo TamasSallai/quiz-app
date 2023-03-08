@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
+import { useQuizContext } from '../../context'
 import { triviaCategories } from './trivia-categories'
 import './CreateQuiz.css'
 
@@ -6,16 +7,19 @@ const CreateQuiz = () => {
   const [amount, setAmount] = useState<string>('5')
   const [categoryId, setCategoryId] = useState<string>()
   const [difficulty, setDifficulty] = useState<string>()
+  const [, dispatch] = useQuizContext()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    const amountParam = amount ? `amont=${amount}` : ''
-    const categoryParam = categoryId ? `category=${categoryId}` : ''
-    const difficultyParam = difficulty ? `difficulty=${difficulty}` : ''
+    const amountParam = amount ? `amount=${amount}` : ''
+    const categoryParam = categoryId ? `&category=${categoryId}` : ''
+    const difficultyParam = difficulty ? `&difficulty=${difficulty}` : ''
 
-    console.log(
-      `https://opentdb.com/api.php?${amountParam}&${categoryParam}&${difficultyParam}&encode=base64`
+    const response = await fetch(
+      `https://opentdb.com/api.php?${amountParam}&${categoryParam}&${difficultyParam}`
     )
+    const data = await response.json()
+    dispatch({ type: 'SET_QUIZ_LIST', payload: data.results })
   }
   return (
     <form className="quiz-form" onSubmit={handleSubmit}>

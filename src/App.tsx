@@ -14,15 +14,16 @@ function App() {
   )
   const [{ quizList, isFinished }, dispatch] = useQuizContext()
 
-  useEffect(() => {
-    if (data) {
-      dispatch({ type: 'SET_QUIZ_LIST', payload: data })
-    }
-  }, [data])
-
   return (
     <div className="app">
-      {isFinished ? <Score /> : quizList.length > 0 && <QuizBox />}
+      {/* <CreateQuiz /> */}
+      {isFinished ? (
+        <Score />
+      ) : quizList.length > 0 ? (
+        <QuizBox />
+      ) : (
+        <CreateQuiz />
+      )}
     </div>
   )
 }
