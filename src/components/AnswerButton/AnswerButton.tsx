@@ -20,14 +20,15 @@ const AnswerButton = ({
     isCorrect = 'incorrect'
   }
 
+  const text = { __html: answerText }
+
   return (
     <button
       className={`answer-button ${isCorrect}`}
       onClick={onClick}
       disabled={currentAnswer !== undefined}
-    >
-      {answerText}
-    </button>
+      dangerouslySetInnerHTML={text}
+    ></button>
   )
 }
 
