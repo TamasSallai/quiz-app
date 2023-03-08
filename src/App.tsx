@@ -5,6 +5,7 @@ import useFetch from './hooks/useFetch'
 import QuizBox from './components/QuizBox/QuizBox'
 import Score from './components/Score/Score'
 import './App.css'
+import CreateQuiz from './components/CreateQuiz/CreateQuiz'
 
 function App() {
   const { data, isLoading, error } = useFetch<QuizData[]>(
@@ -13,15 +14,16 @@ function App() {
   )
   const [{ quizList, isFinished }, dispatch] = useQuizContext()
 
-  useEffect(() => {
-    if (data) {
-      dispatch({ type: 'SET_QUIZ_LIST', payload: data })
-    }
-  }, [data])
-
   return (
     <div className="app">
-      {isFinished ? <Score /> : quizList.length > 0 && <QuizBox />}
+      {/* <CreateQuiz /> */}
+      {isFinished ? (
+        <Score />
+      ) : quizList.length > 0 ? (
+        <QuizBox />
+      ) : (
+        <CreateQuiz />
+      )}
     </div>
   )
 }

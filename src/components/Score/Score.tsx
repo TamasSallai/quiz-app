@@ -25,6 +25,10 @@ const Score = () => {
     dispatch({ type: 'RESTART_QUIZ' })
   }
 
+  const handleCleanup = () => {
+    dispatch({ type: 'CLEANUP_QUIZ' })
+  }
+
   return (
     <div className="score-container">
       <div className="score-text-container">
@@ -39,7 +43,9 @@ const Score = () => {
         <button className="btn-primary" onClick={handleRestartQuiz}>
           Restart Quiz
         </button>
-        <button className="btn-primary">Start New Quiz</button>
+        <button className="btn-primary" onClick={handleCleanup}>
+          Start New Quiz
+        </button>
       </div>
     </div>
   )
