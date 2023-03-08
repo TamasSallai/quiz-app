@@ -3,7 +3,7 @@ import AnswerButton from '../AnswerButton/AnswerButton'
 import './QuizBox.css'
 
 const QuizBox = () => {
-  const [{ quizList, quizIndex }, dispatch] = useQuizContext()
+  const [{ quizList, quizIndex, numberOfAnswers }, dispatch] = useQuizContext()
   const currentQuiz = quizList[quizIndex]
 
   const handleSelect = (answer: string) => {
@@ -16,6 +16,10 @@ const QuizBox = () => {
 
   const handlePrevQuestion = () => {
     dispatch({ type: 'PREV_QUESTION' })
+  }
+
+  const handleFinishQuiz = () => {
+    dispatch({ type: 'FINISH_QUIZ' })
   }
 
   return (
@@ -47,9 +51,24 @@ const QuizBox = () => {
         >
           Previous
         </button>
-        <button className="btn-primary" onClick={handleNextQuestion}>
-          Next
-        </button>
+
+        {quizIndex !== quizList.length - 1 ? (
+          <button
+            className="btn-primary"
+            onClick={handleNextQuestion}
+            disabled={!currentQuiz.choosen_answer}
+          >
+            Next
+          </button>
+        ) : (
+          <button
+            className="btn-primary"
+            onClick={handleFinishQuiz}
+            disabled={quizList.length !== numberOfAnswers}
+          >
+            Finish
+          </button>
+        )}
       </div>
     </div>
   )

@@ -1,13 +1,13 @@
-import { createContext, useContext, useEffect, useReducer } from 'react'
-import useFetch from '../hooks/useFetch'
+import { createContext, useContext, useReducer } from 'react'
+import { QuizDataExtended } from '../type'
 import { Action, reducer } from './reducer'
-import { QuizData, QuizDataExtended } from '../type'
 
 export interface State {
   quizList: QuizDataExtended[]
   quizIndex: number
   numberOfAnswers: number
   numberOfCorrectAnswers: number
+  isFinished: boolean
 }
 
 const initialState: State = {
@@ -15,6 +15,7 @@ const initialState: State = {
   quizIndex: 0,
   numberOfAnswers: 0,
   numberOfCorrectAnswers: 0,
+  isFinished: false,
 }
 
 const QuizContext = createContext<[State, React.Dispatch<Action>]>([
@@ -30,20 +31,10 @@ interface QuizProviderProps {
 
 export const QuizProvider = ({ children }: QuizProviderProps) => {
   const [value, dispatch] = useReducer(reducer, initialState)
-  const { data, isLoading, error } = useFetch<QuizData[]>(
-    'https://opentdb.com/api.php?amount=10',
-    'results'
-  )
-
-  useEffect(() => {
-    if (data) {
-      dispatch({ type: 'SET_QUIZ_LIST', payload: data })
-    }
-  }, [data])
 
   return (
     <QuizContext.Provider value={[value, dispatch]}>
-      {!isLoading && children}
+      {children}
     </QuizContext.Provider>
   )
 }
